@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -o piggymetrics -c
+    kompose.version: 1.14.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: notification-service
+  name: notification-service
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: notification-service
+    spec:
+      containers:
+      - env:
+        - name: CONFIG_SERVICE_PASSWORD
+          value: {{ .Values.DEFAULT_PASSWORD }}
+        - name: MONGODB_PASSWORD
+          value: {{ .Values.DEFAULT_PASSWORD }}
+        - name: NOTIFICATION_SERVICE_PASSWORD
+          value: {{ .Values.DEFAULT_PASSWORD }}
+        image: sqshq/piggymetrics-notification-service
+        name: notification-service
+        ports:
+        - containerPort: 8000
+        resources: {}
+      restartPolicy: Always
+status: {}
