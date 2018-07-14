@@ -3,22 +3,19 @@ kind: Service
 metadata:
   annotations:
     kompose.cmd: kompose convert -o piggymetrics -c
-    kompose.service.type: nodeport
+    kompose.service.type: loadbalancer
     kompose.version: 1.14.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: monitoring
-  name: monitoring
+    io.kompose.service: gateway
+  name: gateway
 spec:
   ports:
-  - name: "9000"
-    port: 9000
-    targetPort: 8080
-  - name: "8989"
-    port: 8989
-    targetPort: 8989
+  - name: "4000"
+    port: 4000
+    targetPort: 4000
   selector:
-    io.kompose.service: monitoring
+    io.kompose.service: gateway
   type: LoadBalancer
 status:
   loadBalancer: {}

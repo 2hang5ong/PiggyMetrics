@@ -180,7 +180,7 @@ services:
     depends_on:
       - config
     labels: 
-      kompose.service.type: nodeport
+      kompose.service.type: loadbalancer
     ports:
       - 9000:8080
       - 8989:8989
